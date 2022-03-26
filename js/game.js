@@ -53,8 +53,6 @@ let game = {
   },
 
   fitWidth(data) {
-    
-
     // data.realWidth / data.realHeight
     // this.width/fitHeight
 
@@ -62,7 +60,7 @@ let game = {
     this.height = Math.min(this.height, data.maxHeight);
     this.height = Math.max(this.height, data.minHeight);
     this.width = Math.round(data.realWidth * this.height / data.realHeight);
-    this.canvas.styke.width = "100%";
+    this.canvas.style.width = "100%";
   },
 
   fitHeight(data) {
