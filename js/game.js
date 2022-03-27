@@ -101,9 +101,12 @@ let game = {
   create() {
     this.board.create();
     this.snake.create();
+    window.addEventListener("keydown", () => {
+      this.snake.start();
+    });
   },
 
-  render() {
+  render() {  
     window.requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.width, this.height);
       this.ctx.drawImage(
@@ -115,8 +118,10 @@ let game = {
       this.snake.render();
     });
   },
-  update(){this.snake.move();
-      this.render();},
+  update() {
+    this.snake.move();
+    this.render();
+  },
 
   run() {
     this.create();

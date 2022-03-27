@@ -1,6 +1,7 @@
 game.snake = {
   game: game,
   cells: [],
+  moving: false,
   create() {
     let startCells = [
       { row: 7, col: 7 },
@@ -17,7 +18,14 @@ game.snake = {
     });
     },
   
+  start() {
+    this.moving = true;
+  },
+
   move() {
+    if (!this.moving) {
+      return;
+    }
     let cell = this.getNextCell();
     if (cell) {
       this.cells.unshift(cell);
