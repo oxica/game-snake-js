@@ -20,6 +20,11 @@ let game = {
     body: null,
     food: null,
   },
+
+  random(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  },
+
   start() {
     this.init();
     this.preload(() => {
@@ -103,12 +108,12 @@ let game = {
     this.board.create();
     this.snake.create();
     this.board.createFood();
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       this.snake.start(e.keyCode);
     });
   },
 
-  render() {  
+  render() {
     window.requestAnimationFrame(() => {
       this.ctx.clearRect(0, 0, this.width, this.height);
       this.ctx.drawImage(
