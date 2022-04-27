@@ -17,6 +17,7 @@ let game = {
   sprites: {
     background: null,
     cell: null,
+    head: null,
     body: null,
     food: null,
   },

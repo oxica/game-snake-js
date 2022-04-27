@@ -36,10 +36,25 @@ game.snake = {
       this.cells.push(this.game.board.getCell(startCell.row, startCell.col));
     }
   },
+
+  renderHead() { 
+    let head = this.cells[0];
+    this.game.ctx.drawImage(this.game.sprites.head, head.x, head.y);
+  },
+
+  renderBody() {
+    for (let i = 1; i < this.cells.length; i++) { 
+      this.game.ctx.drawImage(
+        this.game.sprites.body,
+        this.cells[i].x,
+        this.cells[i].y
+      );
+    }
+  },
+
   render() {
-    this.cells.forEach((cell) => {
-      this.game.ctx.drawImage(this.game.sprites.body, cell.x, cell.y);
-    });
+    this.renderHead();
+    this.renderBody();
   },
 
   start(keyCode) {
