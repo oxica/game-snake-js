@@ -21,24 +21,20 @@ let game = {
     body: null,
     food: null,
   },
-
   random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.floor(Math.random() * (max + 1 - min)) + min;
   },
-
   start() {
     this.init();
     this.preload(() => {
       this.run();
     });
   },
-
   init() {
     this.canvas = document.getElementById("mycanvas");
     this.ctx = this.canvas.getContext("2d");
     this.initDimensions();
   },
-
   initDimensions() {
     let data = {
       maxWidth: this.dimensions.max.width,
@@ -58,34 +54,21 @@ let game = {
     this.canvas.width = this.width;
     this.canvas.height = this.height;
   },
-
   fitWidth(data) {
-    // data.realWidth / data.realHeight
-    // this.width/fitHeight
-
     this.height = Math.round((this.width * data.realHeight) / data.realWidth);
     this.height = Math.min(this.height, data.maxHeight);
     this.height = Math.max(this.height, data.minHeight);
     this.width = Math.round((data.realWidth * this.height) / data.realHeight);
     this.canvas.style.width = "100%";
   },
-
   fitHeight(data) {
-    // realWidth / realHeight
-    // resultWidth / maxHeight
     this.width = Math.round(
       (data.realWidth * data.maxHeight) / data.realHeight
     );
-
-    // realWidth / realHeight
-
     this.width = Math.min(this.width, data.maxWidth);
     this.width = Math.max(this.width, data.minWidth);
-
-    // this.height = data.maxHeight;
     this.height = Math.round((this.width * data.realHeight) / data.realWidth);
     this.canvas.style.height = "100%";
-    console.log(this.width, this.height);
   },
   preload(callback) {
     let loaded = 0;
@@ -104,18 +87,20 @@ let game = {
       this.sprites[key].addEventListener("load", onAssetLoad);
     }
   },
-
   create() {
+    // создание игровых объектов
     this.board.create();
     this.snake.create();
     this.board.createFood();
+    // установка игровых событий
     window.addEventListener("keydown", (e) => {
       this.snake.start(e.keyCode);
     });
   },
-
   render() {
+    // отрисовка игровых объектов
     window.requestAnimationFrame(() => {
+      // перед тем, как отрисовать новый кадр необходимо очистить предыдущий
       this.ctx.clearRect(0, 0, this.width, this.height);
       this.ctx.drawImage(
         this.sprites.background,
@@ -127,13 +112,14 @@ let game = {
     });
   },
   update() {
+    // двигать змею
     this.snake.move();
+    // отрисовывать новый кадр
     this.render();
   },
-
   run() {
     this.create();
-
+    // каждые 150мс
     setInterval(() => {
       this.update();
     }, 150);

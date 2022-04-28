@@ -23,33 +23,36 @@ game.board = {
       y: offsetY + cellSize * row,
     };
   },
+
   getRandomAvailableCell() {
-      let pool = this.cells.filter(cell => !this.game.snake.hasCell(cell));
-      
+    let pool = this.cells.filter((cell) => !this.game.snake.hasCell(cell));
     let index = this.game.random(0, pool.length - 1);
     return pool[index];
   },
 
   createFood() {
-    let cell = this.cells.find(cell => cell.hasFood);
+    let cell = this.cells.find((cell) => cell.hasFood);
     if (cell) {
       cell.hasFood = false;
     }
+
     cell = this.getRandomAvailableCell();
+
     cell.hasFood = true;
-    },
+  },
 
   isFoodCell(cell) {
     return cell.hasFood;
   },
-  
+
   getCell(row, col) {
     return this.cells.find((cell) => cell.row === row && cell.col === col);
-    },
-  
+  },
+
   render() {
     this.cells.forEach((cell) => {
       this.game.ctx.drawImage(this.game.sprites.cell, cell.x, cell.y);
+
       if (cell.hasFood) {
         this.game.ctx.drawImage(this.game.sprites.food, cell.x, cell.y);
       }
